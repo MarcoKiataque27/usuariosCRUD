@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="public/style.css">
+</head>
+<body>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">U</div>
+            <span class="brand-name">UserPanel</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Usuarios
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-footer-text">Sistema CRUD v1.0</div>
+        </div>
+    </aside>
+
+    <!-- ═══ MAIN ═══ -->
+    <main class="main">
+
+        <!-- Top bar -->
+        <header class="topbar">
+            <div>
+                <h1 class="page-title">Gestión de Usuarios</h1>
+                <p class="page-sub">Administra el directorio completo de usuarios</p>
+            </div>
+        </header>
+
+        <!-- Stat cards -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon stat-icon--blue">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </div>
+                <div>
+                    <div class="stat-value" id="stat-total">—</div>
+                    <div class="stat-label">Total usuarios</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon stat-icon--green">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6.29 6.29l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div>
+                    <div class="stat-value" id="stat-phone">—</div>
+                    <div class="stat-label">Con celular</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon stat-icon--amber">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <div>
+                    <div class="stat-value" id="stat-last">—</div>
+                    <div class="stat-label">Último ID</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content grid: form + table -->
+        <section class="content-grid">
+
+            <!-- Form panel -->
+            <div class="panel panel--form">
+                <div class="panel-header">
+                    <h2 class="panel-title" id="form-title">Nuevo Usuario</h2>
+                    <div class="panel-dot"></div>
+                </div>
+                <form id="usuario-form" autocomplete="off">
+                    <input type="hidden" id="usuario-id">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" placeholder="Ej. Carlos" required maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" placeholder="Ej. Pérez" required maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="correo">Correo electrónico</label>
+                        <input type="email" id="correo" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="celular">Celular <span class="optional">opcional</span></label>
+                        <input type="text" id="celular" placeholder="+591 7xxxxxxx" maxlength="30">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="btn-submit">
+                            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Crear usuario
+                        </button>
+                        <button type="button" class="btn btn-ghost" id="btn-cancel" style="display:none;">Cancelar</button>
+                    </div>
+                    <div id="form-message"></div>
+                </form>
+            </div>
+
+            <!-- Table panel -->
+            <div class="panel panel--table">
+                <div class="panel-header">
+                    <h2 class="panel-title">Directorio</h2>
+                    <span class="badge" id="badge-count">0</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre completo</th>
+                                <th>Correo</th>
+                                <th>Celular</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuarios-tbody"></tbody>
+                    </table>
+                </div>
+                <div id="usuarios-message"></div>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        const API_URL = 'api/usuarios';
+
+        async function fetchUsuarios() {
+            try {
+                const res = await fetch(API_URL);
+                const json = await res.json();
+                const data = json.data || [];
+                renderUsuarios(data);
+                updateStats(data);
+            } catch (err) {
+                showMessage('usuarios-message', 'Error al cargar usuarios', 'error');
+            }
+        }
+
+        function updateStats(usuarios) {
+            document.getElementById('stat-total').textContent = usuarios.length;
+            document.getElementById('stat-phone').textContent = usuarios.filter(u => u.celular && u.celular.trim()).length;
+            document.getElementById('stat-last').textContent = usuarios.length ? usuarios[usuarios.length - 1].id : '—';
+            document.getElementById('badge-count').textContent = usuarios.length;
+        }
+
+        function renderUsuarios(usuarios) {
+            const tbody = document.getElementById('usuarios-tbody');
+            if (usuarios.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="empty"><div class="empty-icon">👤</div>No hay usuarios registrados</td></tr>';
+                return;
+            }
+            tbody.innerHTML = usuarios.map(u => `
+                <tr>
+                    <td><span class="id-badge">${u.id}</span></td>
+                    <td>
+                        <div class="user-cell">
+                            <div class="avatar">${(u.nombre[0]||'?').toUpperCase()}</div>
+                            <div>
+                                <div class="user-name">${u.nombre} ${u.apellido}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="email-text">${u.correo}</span></td>
+                    <td>${u.celular ? `<span class="phone-text">${u.celular}</span>` : '<span class="none-text">—</span>'}</td>
+                    <td class="actions">
+                        <button class="btn btn-edit btn-sm" onclick="editUsuario(${u.id}, '${u.nombre}', '${u.apellido}', '${u.correo}', '${u.celular || ''}')">
+                            Editar
+                        </button>
+                        <button class="btn btn-delete btn-sm" onclick="deleteUsuario(${u.id})">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        document.getElementById('usuario-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('usuario-id').value;
+            const data = {
+                nombre:   document.getElementById('nombre').value,
+                apellido: document.getElementById('apellido').value,
+                correo:   document.getElementById('correo').value,
+                celular:  document.getElementById('celular').value
+            };
+            try {
+                const res = await fetch(API_URL + (id ? '/' + id : ''), {
+                    method: id ? 'PUT' : 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const json = await res.json();
+                if (res.ok) {
+                    showMessage('form-message', json.message || 'Operación exitosa', 'success');
+                    resetForm();
+                    fetchUsuarios();
+                } else {
+                    const msg = json.errors ? json.errors.join(', ') : json.error;
+                    showMessage('form-message', msg, 'error');
+                }
+            } catch (err) {
+                showMessage('form-message', 'Error en la operación', 'error');
+            }
+        });
+
+        async function deleteUsuario(id) {
+            if (!confirm('¿Eliminar este usuario?')) return;
+            try {
+                const res = await fetch(API_URL + '/' + id, { method: 'DELETE' });
+                if (res.ok) {
+                    showMessage('usuarios-message', 'Usuario eliminado correctamente', 'success');
+                    fetchUsuarios();
+                } else {
+                    const json = await res.json();
+                    showMessage('usuarios-message', json.error, 'error');
+                }
+            } catch (err) {
+                showMessage('usuarios-message', 'Error al eliminar', 'error');
+            }
+        }
+
+        function editUsuario(id, nombre, apellido, correo, celular) {
+            document.getElementById('usuario-id').value    = id;
+            document.getElementById('nombre').value        = nombre;
+            document.getElementById('apellido').value      = apellido;
+            document.getElementById('correo').value        = correo;
+            document.getElementById('celular').value       = celular;
+            document.getElementById('form-title').textContent        = 'Editar Usuario';
+            document.getElementById('btn-submit').innerHTML =
+                '<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Actualizar';
+            document.getElementById('btn-cancel').style.display = 'inline-flex';
+            document.querySelector('.panel--form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function resetForm() {
+            document.getElementById('usuario-form').reset();
+            document.getElementById('usuario-id').value = '';
+            document.getElementById('form-title').textContent = 'Nuevo Usuario';
+            document.getElementById('btn-submit').innerHTML =
+                '<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Crear usuario';
+            document.getElementById('btn-cancel').style.display = 'none';
+            document.getElementById('form-message').innerHTML = '';
+        }
+
+        document.getElementById('btn-cancel').addEventListener('click', resetForm);
+
+        function showMessage(elId, msg, type) {
+            document.getElementById(elId).innerHTML =
+                `<div class="alert alert-${type}">${msg}</div>`;
+            setTimeout(() => document.getElementById(elId).innerHTML = '', 5000);
+        }
+
+        fetchUsuarios();
+    </script>
+</body>
+</html>
